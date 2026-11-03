@@ -1,0 +1,94 @@
+.formule {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 1rem 3.25rem 1rem 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--bordure);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  text-align: center;
+  break-inside: avoid;
+}
+
+.formule .katex-display { margin: 0.4rem 0; }
+.numero-equation { float: right; margin-left: 1rem; color: var(--texte-doux); }
+.copier-latex { position: absolute; top: 0.5rem; right: 0.5rem; opacity: 0; }
+.formule:hover .copier-latex, .formule:focus-within .copier-latex { opacity: 1; }
+pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--bordure);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  font-family: Consolas, "Courier New", monospace;
+  line-height: 1.5;
+}
+.avertissement-ocr {
+  margin-block: 1.5rem;
+  padding: 1rem;
+  border: 2px solid #9a5c00;
+  border-radius: 0.5rem;
+  background: var(--surface);
+}
+.transcription-page {
+  margin-block: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--bordure);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+.transcription-page h3 { margin-top: 0; }
+.box-retenir { border-left: 0.35rem solid #268269; }
+.table-wrapper { margin-block: 1.2rem; overflow-x: auto; }
+table { border-collapse: collapse; margin: auto; min-width: 16rem; }
+caption { padding: 0.5rem; font-weight: 700; }
+th, td { border: 1px solid var(--bordure); padding: 0.45rem 0.8rem; text-align: center; }
+thead, tbody th { background: var(--table-head); }
+
+.box-definition, .box-theoreme, .box-demo, .box-methode,
+.box-exemple, .box-remarque, .box-retenir, .box-exercice {
+  margin-block: 1.4rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--bordure);
+  border-radius: 0.55rem;
+  background: var(--surface);
+  break-inside: avoid;
+}
+
+.box-definition { border-left: 0.35rem solid #2878a0; }
+.box-theoreme { border-left: 0.35rem solid #6c63a8; }
+.box-demo { border-left: 0.35rem solid #64748b; }
+.box-methode { border-left: 0.35rem solid #b7791f; }
+.box-exemple { border-left: 0.35rem solid #31805f; }
+.box-remarque { border-left: 0.35rem solid #b44d4d; }
+.box-exercice { border-left: 0.35rem solid #9a5c9e; }
+
+.box-label { margin: 0 0 0.45rem; font-weight: 700; }
+.box-demo > summary, .box-exercice > summary { cursor: pointer; font-weight: 700; }
+
+figure {
+  margin: 1.5rem auto;
+  padding: 0.65rem;
+  border: 1px solid var(--bordure);
+  border-radius: 0.55rem;
+  background: #fff;
+  text-align: center;
+  break-inside: avoid;
+}
+
+figure img { height: auto; max-height: 75vh; cursor: zoom-in; }
+figcaption { padding: 0.5rem; color: #263341; }
+
+.lightbox {
+  width: min(96vw, 90rem);
+  max-width: none;
+  max-height: 96vh;
+  padding: 0.5rem;
+  border: 0;
+  background: #fff;
+}
+.lightbox::backdrop { background: rgb(0 0 0 / 82%); }
+.lightbox img { display: block; max-width: 100%; max-height: 88vh; margin: auto; }
+.lightbox button { display: block; margin: 0.25rem 0 0 auto; }

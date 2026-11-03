@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapitre 5 — Graphes et ordonnancement — Manuel de mathématiques</title>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/maths.css">
+  <link rel="stylesheet" href="../assets/css/print.css" media="print">
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+</head>
+<body>
+  <header class="site-header"><div class="contenu barre-haute">
+    <a class="marque" href="../index.html">Manuel de mathématiques — BTS SIO</a>
+    <div class="actions"><button type="button" data-theme-toggle aria-pressed="false">Thème clair/sombre</button></div>
+  </div></header>
+  <div class="contenu page-layout">
+    <nav class="sommaire" aria-label="Sommaire du chapitre">
+      <a href="../index.html">Accueil</a><h2>Dans ce chapitre</h2><ul><li><a href="#graphe-oriente">A. Graphe orienté</a><ul><li><a href="#tableaux-predecesseurs-successeurs">I. Tableaux des prédécesseurs et des successeurs</a></li><li><a href="#chemins-circuits">II. Chemin, boucle, circuit</a></li><li><a href="#matrice-adjacence-puissances">III. Matrice d’adjacence et puissance de matrice</a></li><li><a href="#fermeture-transitive">IV. Fermeture transitive</a></li><li><a href="#niveaux-ordonnancement">V. Niveaux</a></li></ul></li><li><a href="#ordonnancement">B. Ordonnancement</a><ul><li><a href="#methode-mpm-pert">I. Méthode MPM/PERT</a></li><li><a href="#dates-au-plus-tot-au-plus-tard">II. Date au plus tôt, date au plus tard</a></li><li><a href="#marges-chemin-critique">III. Marges et chemin critique</a></li></ul></li></ul>
+    </nav>
+    <main>
+      <nav aria-label="Fil d’Ariane"><a href="../index.html">Accueil</a> / Chapitre 5</nav>
+      <h1>Chapitre 5 — Graphes et ordonnancement</h1>
+      
+      <aside class="avertissement-ocr" aria-label="Note de vérification"><strong>Note de vérification.</strong> Le chapitre a été repris à partir des scans des pages PDF 85 à 117. Les tableaux de successeurs, de prédécesseurs, les matrices d’adjacence et les calculs d’ordonnancement sont restructurés en tableaux accessibles et en LaTeX. Les graphes des exercices sont décrits par leurs arcs orientés et leurs tableaux de données. <a href="../docs/points-a-verifier.md">Voir les points à vérifier</a>.</aside>
+      <section><h2 id="graphe-oriente">A. Graphe orienté</h2><figure id="ch05-fig-001"><img src="../assets/img/chapitre-05/ch05-fig-001.png" alt="Graphe orienté dessiné à l&#x27;intérieur d&#x27;un profil." loading="lazy" width="1600" height="987"><figcaption>Illustration en tête du chapitre.</figcaption></figure><p>Un graphe orienté est noté \(G=(X;U)\), où \(X\) est l’ensemble de ses sommets et \(U(x)\) l’ensemble des successeurs du sommet \(x\). Un arc de \(x\) vers \(y\) se note \(x\to y\).</p><section><h3 id="tableaux-predecesseurs-successeurs">I. Tableaux des prédécesseurs et des successeurs</h3><p>Le tableau des successeurs indique, pour chaque sommet, les sommets atteints par un arc qui en part. Le tableau des prédécesseurs donne les sommets d’où arrivent les arcs.</p><div class="table-wrapper"><table><caption>Tableau des successeurs de l’exemple du manuel.</caption><thead><tr><th scope="col">Sommet \(x\)</th><th scope="col">Successeurs \(U(x)\)</th></tr></thead><tbody><tr><th scope="row">A</th><td>A, B</td></tr>
+<tr><th scope="row">B</th><td>A, C</td></tr>
+<tr><th scope="row">C</th><td>A, D</td></tr>
+<tr><th scope="row">D</th><td>A, B</td></tr>
+<tr><th scope="row">E</th><td>D</td></tr></tbody></table></div><div class="table-wrapper"><table><caption>Tableau des prédécesseurs du même graphe.</caption><thead><tr><th scope="col">Sommet \(x\)</th><th scope="col">Prédécesseurs \(U^{-1}(x)\)</th></tr></thead><tbody><tr><th scope="row">A</th><td>A, B, C, D</td></tr>
+<tr><th scope="row">B</th><td>A, D</td></tr>
+<tr><th scope="row">C</th><td>B</td></tr>
+<tr><th scope="row">D</th><td>C, E</td></tr>
+<tr><th scope="row">E</th><td>\(\varnothing\)</td></tr></tbody></table></div><p>On peut obtenir le tableau des prédécesseurs en inversant les arcs du tableau des successeurs, ou en repérant les flèches qui arrivent à chaque sommet.</p><section class="box-exercice"><p class="box-label">Exercice 52</p><p>Construire le graphe défini par le tableau des successeurs suivant.</p>
+<div class="table-wrapper"><table><thead><tr><th scope="col">Sommet</th><th scope="col">Successeurs</th></tr></thead><tbody><tr><th scope="row">A</th><td>A, D</td></tr>
+<tr><th scope="row">B</th><td>C, E, F</td></tr>
+<tr><th scope="row">C</th><td>C, D, E</td></tr>
+<tr><th scope="row">D</th><td>F</td></tr>
+<tr><th scope="row">E</th><td>E, C</td></tr>
+<tr><th scope="row">F</th><td>E</td></tr></tbody></table></div></section><section class="box-exemple"><p class="box-label">Retrouver les successeurs à partir des prédécesseurs</p><div class="table-wrapper"><table><caption>Tableau de prédécesseurs de l’exemple.</caption><thead><tr><th scope="col">Sommet</th><th scope="col">Prédécesseurs</th></tr></thead><tbody><tr><th scope="row">A</th><td>\(\varnothing\)</td></tr>
+<tr><th scope="row">B</th><td>A, C</td></tr>
+<tr><th scope="row">C</th><td>A</td></tr>
+<tr><th scope="row">D</th><td>B, C</td></tr>
+<tr><th scope="row">E</th><td>D</td></tr>
+<tr><th scope="row">F</th><td>D, E</td></tr></tbody></table></div>
+<div class="table-wrapper"><table><caption>Tableau des successeurs correspondant.</caption><thead><tr><th scope="col">Sommet</th><th scope="col">Successeurs</th></tr></thead><tbody><tr><th scope="row">A</th><td>B, C</td></tr>
+<tr><th scope="row">B</th><td>D</td></tr>
+<tr><th scope="row">C</th><td>B, D</td></tr>
+<tr><th scope="row">D</th><td>E, F</td></tr>
+<tr><th scope="row">E</th><td>F</td></tr>
+<tr><th scope="row">F</th><td>\(\varnothing\)</td></tr></tbody></table></div></section></section>
+<section><h3 id="chemins-circuits">II. Chemin, boucle, circuit</h3><section class="box-definition"><p class="box-label">1) Chemin</p><p>Un chemin est une suite d’arcs qui permet d’aller d’un sommet à un autre. Sa longueur est le nombre d’arcs parcourus.</p>
+<p>Dans l’exemple précédent, \(A\to B\) est un chemin de longueur 1, \(A\to B\to D\) est un chemin de longueur 2, et \(A\to B\to D\to E\to F\) est un chemin de longueur 4. Il n’existe pas de chemin de \(B\) vers \(C\).</p></section><section class="box-definition"><p class="box-label">2) Circuit et 3) Boucle</p><p>Un circuit est un chemin dont l’origine et l’extrémité sont le même sommet. Une boucle est un circuit de longueur 1.</p>
+<p>Exemples : \(A\to B\to A\) est un circuit de longueur 2 ; \(B\to C\to D\to B\) est un circuit de longueur 3 ; \(A\to B\to C\to D\to A\) est un circuit de longueur 4. L’arc \(A\to A\) est une boucle.</p></section><section class="box-definition"><p class="box-label">4) Chemin hamiltonien</p><p>Un chemin hamiltonien passe par tous les sommets du graphe une et une seule fois. Dans l’exemple du manuel, \(A\to C\to B\to D\to E\to F\) est un chemin hamiltonien.</p></section><section class="box-exercice"><p class="box-label">Exercice 53</p><p>Répondre aux questions à l’aide du graphe de l’exercice 52.</p>
+<p>1) Citer un chemin de longueur 5. 2) Citer deux circuits. 3) Combien y a-t-il de boucles ? Les nommer. 4) Ajouter un arc (chemin de longueur 1) pour que le graphe possède un chemin hamiltonien.</p></section></section>
+<section><h3 id="matrice-adjacence-puissances">III. Matrice d’adjacence et puissance de matrice</h3><p>La matrice d’adjacence contient des 0 et des 1. Le coefficient de la ligne \(i\) et de la colonne \(j\) vaut 1 s’il existe un arc orienté du sommet \(i\) vers le sommet \(j\), et 0 sinon. Les lignes représentent les prédécesseurs et les colonnes les successeurs ; la diagonale indique les boucles.</p><section class="box-exemple"><p class="box-label">Matrice d’adjacence et nombre de chemins</p><p>Pour le graphe à sommets \(A,B,C,D,E\), dans cet ordre :</p>
+<div class="formule" data-latex="M=\begin{pmatrix}1&amp;1&amp;0&amp;0&amp;0\\1&amp;0&amp;1&amp;0&amp;0\\1&amp;0&amp;0&amp;1&amp;0\\1&amp;1&amp;0&amp;0&amp;0\\0&amp;0&amp;0&amp;1&amp;0\end{pmatrix}" role="group" aria-label="Formule">\[M=\begin{pmatrix}1&amp;1&amp;0&amp;0&amp;0\\1&amp;0&amp;1&amp;0&amp;0\\1&amp;0&amp;0&amp;1&amp;0\\1&amp;1&amp;0&amp;0&amp;0\\0&amp;0&amp;0&amp;1&amp;0\end{pmatrix}\]</div>
+<p>La ligne de \(C\) montre que ses successeurs sont \(A\) et \(D\). La colonne de \(B\) montre qu’il a pour prédécesseurs \(A\) et \(D\). Le coefficient \((i,j)\) de \(M^p\) donne le nombre de chemins de longueur \(p\) du sommet \(i\) au sommet \(j\).</p>
+<div class="formule" data-latex="M^2=\begin{pmatrix}2&amp;1&amp;1&amp;0&amp;0\\2&amp;1&amp;0&amp;1&amp;0\\2&amp;2&amp;0&amp;0&amp;0\\2&amp;1&amp;1&amp;0&amp;0\\1&amp;1&amp;0&amp;0&amp;0\end{pmatrix},\qquad M^3=\begin{pmatrix}4&amp;2&amp;1&amp;1&amp;0\\4&amp;3&amp;1&amp;0&amp;0\\4&amp;2&amp;2&amp;0&amp;0\\4&amp;2&amp;1&amp;1&amp;0\\2&amp;1&amp;1&amp;0&amp;0\end{pmatrix}" role="group" aria-label="Formule">\[M^2=\begin{pmatrix}2&amp;1&amp;1&amp;0&amp;0\\2&amp;1&amp;0&amp;1&amp;0\\2&amp;2&amp;0&amp;0&amp;0\\2&amp;1&amp;1&amp;0&amp;0\\1&amp;1&amp;0&amp;0&amp;0\end{pmatrix},\qquad M^3=\begin{pmatrix}4&amp;2&amp;1&amp;1&amp;0\\4&amp;3&amp;1&amp;0&amp;0\\4&amp;2&amp;2&amp;0&amp;0\\4&amp;2&amp;1&amp;1&amp;0\\2&amp;1&amp;1&amp;0&amp;0\end{pmatrix}\]</div>
+<p>Par exemple, le coefficient de la ligne \(B\), colonne \(D\) dans \(M^2\) vaut 1 : il y a un chemin de longueur 2, \(B\to C\to D\). Le coefficient de la ligne \(C\), colonne \(B\) dans \(M^3\) vaut 2 : les chemins sont \(C\to D\to A\to B\) et \(C\to A\to A\to B\).</p></section><section class="box-exercice"><p class="box-label">Exercice 54</p><p>La matrice suivante est la matrice d’adjacence d’un graphe dont les sommets sont \(A,B,C,D\).</p>
+<div class="formule" data-latex="M=\begin{pmatrix}0&amp;1&amp;1&amp;0\\1&amp;1&amp;0&amp;1\\1&amp;0&amp;1&amp;1\\0&amp;1&amp;0&amp;0\end{pmatrix}" role="group" aria-label="Formule">\[M=\begin{pmatrix}0&amp;1&amp;1&amp;0\\1&amp;1&amp;0&amp;1\\1&amp;0&amp;1&amp;1\\0&amp;1&amp;0&amp;0\end{pmatrix}\]</div>
+<p>1) Combien y a-t-il de boucles et sur quels sommets ? 2) Construire le tableau des successeurs. 3) Construire le tableau des prédécesseurs. 4) Construire le graphe correspondant.</p></section><section class="box-exercice"><p class="box-label">Exercice 55</p><p>Le graphe à sommets \(A,B,C,D\) possède les arcs \(A\to B\), \(B\to A\), \(B\to B\), \(A\to C\), \(C\to A\), \(B\to D\), \(D\to B\) et \(D\to C\).</p>
+<p>1) Dresser le tableau des successeurs. 2) Dresser le tableau des prédécesseurs. 3) Écrire la matrice d’adjacence de ce graphe.</p></section><section class="box-exercice"><p class="box-label">Exercice 56</p><p>Le graphe à sommets \(A,B,C,D,E,F\) possède les arcs \(A\to B,C\), \(B\to C,D,E\), \(C\to D,E\), \(D\to F\) et \(E\to D,F\).</p>
+<p>1) Déterminer sa matrice d’adjacence \(M\). 2) Calculer \(M^2,M^3,M^4,M^6\). 3) Combien y a-t-il de chemins de longueur 2 ? 4) Que signifie le coefficient de la première ligne et de la sixième colonne de \(M^4\) ? 5) Combien y a-t-il de chemins de longueur 2 issus de \(B\) ? 6) Combien y a-t-il de chemins de longueur 4 ayant pour extrémité \(F\) ? 7) Que représente la matrice \(M^6\) ?</p></section></section>
+<section><h3 id="fermeture-transitive">IV. Fermeture transitive</h3><p>La fermeture transitive consiste à ajouter les arcs manquants de façon que tout sommet soit en relation avec les sommets qu’il peut atteindre par un chemin. On peut la construire graphiquement ou à partir de la matrice d’adjacence.</p><div class="formule" data-latex="\widehat{M}=M\oplus M^{(2)}\oplus M^{(3)}\oplus M^{(4)}\oplus\cdots" role="group" aria-label="Formule">\[\widehat{M}=M\oplus M^{(2)}\oplus M^{(3)}\oplus M^{(4)}\oplus\cdots\]</div><p>Le symbole \(\oplus\) désigne l’addition booléenne et \(M^{(p)}\) une puissance calculée en logique booléenne. Pour le graphe linéaire \(A\to B\to C\to D\), la fermeture ajoute les arcs \(A\to C\), \(A\to D\) et \(B\to D\).</p><div class="formule" data-latex="M=\begin{pmatrix}0&amp;1&amp;0&amp;0\\0&amp;0&amp;1&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;0\end{pmatrix},\qquad \widehat{M}=\begin{pmatrix}0&amp;1&amp;1&amp;1\\0&amp;0&amp;1&amp;1\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;0\end{pmatrix}" role="group" aria-label="Formule">\[M=\begin{pmatrix}0&amp;1&amp;0&amp;0\\0&amp;0&amp;1&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;0\end{pmatrix},\qquad \widehat{M}=\begin{pmatrix}0&amp;1&amp;1&amp;1\\0&amp;0&amp;1&amp;1\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;0\end{pmatrix}\]</div><p>Pour passer d’une puissance calculée avec des entiers à une puissance booléenne, on conserve les 0 et remplace tout entier non nul par 1 ; l’addition booléenne suit la même règle.</p><section class="box-exercice"><p class="box-label">Exercice 57</p><p>Le graphe possède les arcs \(A\to B\), \(B\to C\), \(C\to D\), \(E\to A\) et \(E\to D\).</p>
+<p>1) Construire le tableau des successeurs. 2) Construire le tableau des prédécesseurs. 3) Indiquer un chemin hamiltonien. 4) Déterminer la matrice d’adjacence \(M\). 5) Calculer \(M^2,M^3,M^4\), puis leurs versions booléennes. 6) En déduire la matrice de fermeture transitive. 7) Effectuer la fermeture transitive du graphe.</p></section></section>
+<section><h3 id="niveaux-ordonnancement">V. Niveaux</h3><p>Pour déterminer les niveaux, on commence par le niveau 0 : les sommets sans prédécesseur. On les retire ensuite de la liste des prédécesseurs ; les sommets qui n’en ont alors plus forment le niveau 1. On répète jusqu’à ce que tous les sommets soient classés.</p><div class="table-wrapper"><table><caption>Tableau des successeurs utilisé pour l’exemple de niveaux.</caption><thead><tr><th scope="col">Sommet</th><th scope="col">Successeurs</th></tr></thead><tbody><tr><th scope="row">A</th><td>B, C, E</td></tr>
+<tr><th scope="row">B</th><td>C, F, G</td></tr>
+<tr><th scope="row">C</th><td>D, F, G</td></tr>
+<tr><th scope="row">D</th><td>F</td></tr>
+<tr><th scope="row">E</th><td>C, D</td></tr>
+<tr><th scope="row">F</th><td>\(\varnothing\)</td></tr>
+<tr><th scope="row">G</th><td>\(\varnothing\)</td></tr></tbody></table></div><div class="table-wrapper"><table><caption>Niveaux des sommets de l’exemple.</caption><thead><tr><th scope="col">Niveau</th><th scope="col">Sommets</th></tr></thead><tbody><tr><th scope="row">0</th><td>A</td></tr>
+<tr><th scope="row">1</th><td>B, E</td></tr>
+<tr><th scope="row">2</th><td>C</td></tr>
+<tr><th scope="row">3</th><td>D, G</td></tr>
+<tr><th scope="row">4</th><td>F</td></tr></tbody></table></div><p>L’ordonnancement consiste à placer les sommets de gauche à droite selon leur niveau et à espacer ceux d’un même niveau pour rendre le graphe plus lisible.</p><section class="box-exercice"><p class="box-label">Exercice 58</p><p>Le tableau indique les tâches antérieures à chaque tâche.</p>
+<div class="table-wrapper"><table><thead><tr><th scope="col">Tâche</th><th scope="col">Tâches antérieures</th></tr></thead><tbody><tr><th scope="row">A</th><td>\(\varnothing\)</td></tr>
+<tr><th scope="row">B</th><td>\(\varnothing\)</td></tr>
+<tr><th scope="row">C</th><td>\(\varnothing\)</td></tr>
+<tr><th scope="row">D</th><td>B</td></tr>
+<tr><th scope="row">E</th><td>B</td></tr>
+<tr><th scope="row">F</th><td>A, D</td></tr>
+<tr><th scope="row">G</th><td>C, E, F</td></tr></tbody></table></div>
+<p>1) Établir le tableau des successeurs. 2) Donner le niveau de chaque tâche. 3) Ordonnancer le graphe correspondant.</p></section></section></section>
+<section><h2 id="ordonnancement">B. Ordonnancement</h2><section><h3 id="methode-mpm-pert">I. Méthode MPM/PERT</h3><p>Un graphe valué associe une valeur positive à chaque arc, par exemple une durée ou une distance. L’ordonnancement sert à organiser un projet et à optimiser les trajets ou les enchaînements de tâches.</p><p>Dans le tableau suivant, les valeurs sont des durées en minutes entre les entrepôts A à J. Les cases vides correspondent à l’absence de trajet direct.</p><div class="table-wrapper"><table><caption>Durées des navettes (en minutes), de la ligne Départ vers la colonne Arrivée.</caption><thead><tr><th scope="col">Départ / Arrivée</th><th scope="col">A</th><th scope="col">B</th><th scope="col">C</th><th scope="col">D</th><th scope="col">E</th><th scope="col">F</th><th scope="col">G</th><th scope="col">H</th><th scope="col">I</th><th scope="col">J</th></tr></thead><tbody><tr><th scope="row">A</th><td></td><td>12</td><td></td><td>10</td><td>15</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">B</th><td></td><td></td><td></td><td></td><td>12</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>5</td><td></td><td>14</td></tr>
+<tr><th scope="row">D</th><td></td><td></td><td></td><td></td><td>8</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">E</th><td></td><td></td><td>7</td><td></td><td></td><td></td><td>9</td><td>13</td><td>14</td><td></td></tr>
+<tr><th scope="row">F</th><td></td><td>5</td><td></td><td>6</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td></td></tr>
+<tr><th scope="row">H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+<tr><th scope="row">I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>6</td></tr>
+<tr><th scope="row">J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div><p>Les possibilités de A à E sont : \(A\to B\to E=24\) minutes, \(A\to E=15\) minutes et \(A\to D\to E=18\) minutes. De E à J, le plus court trajet est \(E\to C\to H\to J=14\) minutes.</p><div class="formule" data-latex="A\to E\to C\to H\to J:\quad 15+7+5+2=29\text{ minutes}" role="group" aria-label="Formule">\[A\to E\to C\to H\to J:\quad 15+7+5+2=29\text{ minutes}\]</div><p>Le trajet le plus rapide de A à J est donc \(A\to E\to C\to H\to J\), en 29 minutes.</p><section class="box-exercice"><p class="box-label">Exercice 59</p><p>Les distances entre les arrêts de bus A à G, en minutes, sont données dans le tableau.</p>
+<div class="table-wrapper"><table><thead><tr><th scope="col">Départ / Arrivée</th><th scope="col">A</th><th scope="col">B</th><th scope="col">C</th><th scope="col">D</th><th scope="col">E</th><th scope="col">F</th><th scope="col">G</th></tr></thead><tbody><tr><th scope="row">A</th><td></td><td>8</td><td></td><td></td><td></td><td></td><td>3</td></tr>
+<tr><th scope="row">B</th><td></td><td></td><td></td><td></td><td>4</td><td></td><td></td></tr>
+<tr><th scope="row">C</th><td></td><td></td><td></td><td></td><td></td><td>6</td><td>4</td></tr>
+<tr><th scope="row">D</th><td>10</td><td></td><td>9</td><td></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">F</th><td></td><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">G</th><td></td><td>7</td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+<p>1) Construire le tableau des prédécesseurs. 2) En déduire le niveau de chaque sommet. 3) Construire le tableau des successeurs. 4) Réaliser le graphe ordonnancé et valué. 5) Déterminer le ou les trajets les plus rapides de D à E.</p></section></section>
+<section><h3 id="dates-au-plus-tot-au-plus-tard">II. Date au plus tôt, date au plus tard</h3><p>La méthode MPM (méthode des potentiels et antécédents Métra), comme la méthode PERT, planifie les tâches d’un projet au moyen d’un graphe. Chaque sommet porte le nom de la tâche ainsi que sa date de début au plus tôt et sa date de début au plus tard.</p><p>Dans l’exemple, les tâches A, B, C et D précèdent la tâche finale E. Les durées sont respectivement 5, 3, 8 et 7 jours ; les arcs sont \(A\to C\), \(A\to D\), \(B\to D\), \(C\to E\) et \(D\to E\).</p><div class="table-wrapper"><table><caption>Durée de chaque tâche dans l’exemple MPM.</caption><thead><tr><th scope="col">Tâche</th><th scope="col">Durée en jours</th></tr></thead><tbody><tr><th scope="row">A</th><td>5</td></tr>
+<tr><th scope="row">B</th><td>3</td></tr>
+<tr><th scope="row">C</th><td>8</td></tr>
+<tr><th scope="row">D</th><td>7</td></tr>
+<tr><th scope="row">E</th><td>Fin</td></tr></tbody></table></div><section class="box-methode"><p class="box-label">Calcul des dates au plus tôt</p><p>On ajoute à la date au plus tôt du sommet de départ la durée de sa tâche. Si plusieurs chemins arrivent au même sommet, on retient la plus grande somme.</p>
+<div class="formule" data-latex="t_{\text{tôt}}(B)=\max_{A\to B}\bigl(t_{\text{tôt}}(A)+d(A)\bigr)" role="group" aria-label="Formule">\[t_{\text{tôt}}(B)=\max_{A\to B}\bigl(t_{\text{tôt}}(A)+d(A)\bigr)\]</div>
+<div class="table-wrapper"><table><caption>Dates au plus tôt de l’exemple.</caption><thead><tr><th scope="col">Tâche</th><th scope="col">Calcul</th><th scope="col">Date au plus tôt</th></tr></thead><tbody><tr><th scope="row">A</th><td>Début</td><td>0</td></tr>
+<tr><th scope="row">B</th><td>Début</td><td>0</td></tr>
+<tr><th scope="row">C</th><td>0 + 5</td><td>5</td></tr>
+<tr><th scope="row">D</th><td>\(\max(0+5,0+3)\)</td><td>5</td></tr>
+<tr><th scope="row">E</th><td>\(\max(5+8,5+7)\)</td><td>13</td></tr></tbody></table></div></section><section class="box-methode"><p class="box-label">Calcul des dates au plus tard</p><p>On reporte la date au plus tôt sur la tâche finale, puis on remonte le graphe en soustrayant la durée de la tâche de départ. Si plusieurs chemins arrivent au même sommet, on retient la plus petite différence.</p>
+<div class="formule" data-latex="t_{\text{tard}}(A)=\min_{A\to B}\bigl(t_{\text{tard}}(B)-d(A)\bigr)" role="group" aria-label="Formule">\[t_{\text{tard}}(A)=\min_{A\to B}\bigl(t_{\text{tard}}(B)-d(A)\bigr)\]</div>
+<div class="table-wrapper"><table><caption>Dates au plus tôt et au plus tard de l’exemple.</caption><thead><tr><th scope="col">Tâche</th><th scope="col">Au plus tôt</th><th scope="col">Au plus tard</th></tr></thead><tbody><tr><th scope="row">A</th><td>0</td><td>0</td></tr>
+<tr><th scope="row">B</th><td>0</td><td>3</td></tr>
+<tr><th scope="row">C</th><td>5</td><td>5</td></tr>
+<tr><th scope="row">D</th><td>5</td><td>6</td></tr>
+<tr><th scope="row">E</th><td>13</td><td>13</td></tr></tbody></table></div>
+<p>Pour la tâche D, la date au plus tard est \(13-7=6\). Pour A, on retient le minimum entre \(5-5=0\) et \(6-5=1\), soit 0.</p></section><section class="box-exercice"><p class="box-label">Exercice 60</p><p>Un lycée transforme une salle de cours en salle informatique. Le tableau réunit les tâches à effectuer, leurs durées et leurs antériorités.</p>
+<div class="table-wrapper"><table><caption>Tâches du projet de transformation de la salle.</caption><thead><tr><th scope="col">Tâche à réaliser</th><th scope="col">Repère</th><th scope="col">Durée en jours</th><th scope="col">Tâches précédentes</th></tr></thead><tbody><tr><th scope="row">Vider la salle et démonter le matériel inutilisé</th><td>A</td><td>2</td><td>\(\varnothing\)</td></tr>
+<tr><th scope="row">Nettoyer et repeindre la salle</th><td>B</td><td>4</td><td>A</td></tr>
+<tr><th scope="row">Installer les tables et fixer un tableau</th><td>C</td><td>1</td><td>B</td></tr>
+<tr><th scope="row">Commander et réceptionner le matériel de câblage</th><td>D</td><td>10</td><td>\(\varnothing\)</td></tr>
+<tr><th scope="row">Déballer et contrôler le matériel de câblage livré</th><td>E</td><td>1</td><td>D</td></tr>
+<tr><th scope="row">Câbler la salle</th><td>F</td><td>3</td><td>B, E</td></tr>
+<tr><th scope="row">Installer et brancher les postes informatiques</th><td>G</td><td>1</td><td>C, F</td></tr>
+<tr><th scope="row">Installer les logiciels, configurer les postes et tester leur fonctionnement</th><td>H</td><td>7</td><td>G</td></tr></tbody></table></div>
+<p>1) Déterminer le niveau de chaque sommet. 2) Donner le tableau des successeurs. 3) Construire le graphe d’ordonnancement du projet et déterminer les dates au plus tôt et au plus tard.</p></section></section>
+<section><h3 id="marges-chemin-critique">III. Marges et chemin critique</h3><section class="box-definition"><p class="box-label">1) Marge totale</p><p>La marge totale d’une tâche est la différence entre sa date au plus tard et sa date au plus tôt. Elle indique le retard maximal possible sur son début sans retarder la fin du projet.</p>
+<div class="formule" data-latex="\text{Marge totale}=\text{date au plus tard}-\text{date au plus tôt}" role="group" aria-label="Formule">\[\text{Marge totale}=\text{date au plus tard}-\text{date au plus tôt}\]</div>
+<p>Dans l’exemple MPM, la marge totale de D est \(6-5=1\) jour.</p></section><section class="box-definition"><p class="box-label">2) Chemin critique</p><p>Le chemin critique est le chemin (ou l’un des chemins) dont la marge totale est nulle. Dans l’exemple, \(A\to C\to E\) est critique ; les tâches A, C et E doivent commencer à l’heure pour ne pas retarder la fin du projet.</p></section><section class="box-definition"><p class="box-label">3) Marge libre</p><p>Pour une tâche A qui précède B, la marge libre est la différence entre la date au plus tôt de B et celle de A, moins la durée de A. Si A a plusieurs successeurs, le calcul se fait pour chacun.</p>
+<div class="formule" data-latex="\text{Marge libre de }A\to B=t_{\text{tôt}}(B)-t_{\text{tôt}}(A)-d(A)" role="group" aria-label="Formule">\[\text{Marge libre de }A\to B=t_{\text{tôt}}(B)-t_{\text{tôt}}(A)-d(A)\]</div>
+<p>Dans l’exemple, la marge libre de A vaut \(5-0-5=0\). C’est le retard maximal au début de A qui ne retarde pas la date au plus tôt de son successeur.</p></section><section class="box-definition"><p class="box-label">4) Marge certaine</p><p>Pour une tâche A qui précède B, on calcule la différence entre la date au plus tôt de B et la date au plus tard de A, puis on retire la durée de A. Si A a plusieurs successeurs, on conserve la plus petite différence ; si le résultat est négatif, la marge certaine est 0.</p>
+<div class="formule" data-latex="\text{Marge certaine de }A\to B=\max\bigl(0,\ t_{\text{tôt}}(B)-t_{\text{tard}}(A)-d(A)\bigr)" role="group" aria-label="Formule">\[\text{Marge certaine de }A\to B=\max\bigl(0,\ t_{\text{tôt}}(B)-t_{\text{tard}}(A)-d(A)\bigr)\]</div>
+<p>Dans l’exemple, pour A vers B, \(5-1-5=-1\), donc la marge certaine de A est 0.</p></section><section class="box-exercice"><p class="box-label">Exercice 61</p><p>Répondre aux questions à l’aide de l’énoncé de l’exercice 60.</p>
+<p>1) Quel est le chemin critique du projet ? 2) Quelle est sa durée minimale ? 3) Calculer la marge libre de la tâche F et interpréter le résultat. 4) Calculer la marge certaine de la tâche F et interpréter le résultat.</p></section></section></section>
+      <nav class="pagination" aria-label="Navigation entre les chapitres"><a href="chapitre-04.html">← Chapitre précédent</a><a href="chapitre-06.html">Chapitre suivant →</a></nav>
+    </main>
+  </div>
+  <footer class="site-footer"><a href="../mentions-legales.html">Mentions légales</a></footer>
+  <script src="../assets/vendor/katex/katex.min.js"></script>
+  <script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/maths.js"></script>
+  <script src="../assets/js/figures.js"></script>
+  <script src="../assets/js/exercices.js"></script>
+</body>
+</html>

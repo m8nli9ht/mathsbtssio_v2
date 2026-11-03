@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manuel de mathématiques pour BTS SIO, lecture en ligne.">
+  <title>Manuel de mathématiques — BTS SIO</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/maths.css">
+  <link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body>
+  <header class="site-header">
+    <div class="contenu barre-haute">
+      <p class="marque">Manuel de mathématiques — BTS SIO</p>
+      <div class="actions">
+        <button type="button" data-theme-toggle aria-pressed="false">Thème clair/sombre</button>
+      </div>
+    </div>
+  </header>
+  <div class="contenu page-layout">
+    <nav class="sommaire" aria-label="Navigation du manuel">
+      <h2>Sommaire</h2>
+      <ul>
+        <li><a href="chapitres/chapitre-01.html">Chapitre 1 — Logique</a></li>
+        <li><a href="chapitres/chapitre-02.html">Chapitre 2 — Calcul booléen</a></li>
+        <li><a href="chapitres/chapitre-03.html">Chapitre 3 — Arithmétique</a></li>
+        <li><a href="chapitres/chapitre-04.html">Chapitre 4 — Matrices</a></li>
+        <li><a href="chapitres/chapitre-05.html">Chapitre 5 — Graphes et ordonnancement</a></li>
+        <li><a href="chapitres/chapitre-06.html">Chapitre 6 — Algorithmes</a></li>
+      </ul>
+    </nav>
+    <main>
+      <nav aria-label="Fil d’Ariane"><a href="index.html">Accueil</a></nav>
+      <h1>Manuel de mathématiques</h1>
+      <p>Pour les étudiants de BTS SIO, première et deuxième années.</p>
+      <section aria-labelledby="sommaire-titre">
+        <h2 id="sommaire-titre">Sommaire</h2>
+        <ol>
+          <li><a href="chapitres/chapitre-01.html">Chapitre 1 — Logique</a></li>
+          <li><a href="chapitres/chapitre-02.html">Chapitre 2 — Calcul booléen</a></li>
+          <li><a href="chapitres/chapitre-03.html">Chapitre 3 — Arithmétique</a></li>
+          <li><a href="chapitres/chapitre-04.html">Chapitre 4 — Matrices</a></li>
+          <li><a href="chapitres/chapitre-05.html">Chapitre 5 — Graphes et ordonnancement</a></li>
+          <li><a href="chapitres/chapitre-06.html">Chapitre 6 — Algorithmes</a></li>
+        </ol>
+      </section>
+      <section aria-labelledby="recherche-titre">
+        <h2 id="recherche-titre">Recherche dans le manuel</h2>
+        <form class="recherche" data-search-form>
+          <label class="sr-only" for="recherche">Rechercher un terme</label>
+          <input id="recherche" type="search" data-search-input>
+          <button type="submit">Rechercher</button>
+        </form>
+        <ul class="resultats" data-search-results aria-live="polite"></ul>
+      </section>
+    </main>
+  </div>
+  <footer class="site-footer"><a href="mentions-legales.html">Mentions légales</a></footer>
+  <script src="assets/js/recherche-index.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/recherche.js"></script>
+</body>
+</html>

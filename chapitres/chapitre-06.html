@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapitre 6 — Algorithmes — Manuel de mathématiques</title>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/maths.css">
+  <link rel="stylesheet" href="../assets/css/print.css" media="print">
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+</head>
+<body>
+  <header class="site-header"><div class="contenu barre-haute">
+    <a class="marque" href="../index.html">Manuel de mathématiques — BTS SIO</a>
+    <div class="actions"><button type="button" data-theme-toggle aria-pressed="false">Thème clair/sombre</button></div>
+  </div></header>
+  <div class="contenu page-layout">
+    <nav class="sommaire" aria-label="Sommaire du chapitre">
+      <a href="../index.html">Accueil</a><h2>Dans ce chapitre</h2><ul><li><a href="#notions-algorithmiques">A. Notions générales</a><ul><li><a href="#variables-affectation">I. Variables et affectation</a></li><li><a href="#suivi-execution">II. Suivre l’exécution</a></li></ul></li><li><a href="#structures-controle">B. Structures de contrôle</a><ul><li><a href="#sequence-condition">I. Séquence et condition</a></li><li><a href="#boucles">II. Boucles</a></li></ul></li><li><a href="#algorithmes-usuels">C. Quelques algorithmes usuels</a><ul><li><a href="#recherche-sequentielle">I. Recherche séquentielle</a></li><li><a href="#algorithme-euclide">II. Algorithme d’Euclide</a></li></ul></li><li><a href="#terminaison-complexite">D. Terminaison et coût</a></li></ul>
+    </nav>
+    <main>
+      <nav aria-label="Fil d’Ariane"><a href="../index.html">Accueil</a> / Chapitre 6</nav>
+      <h1>Chapitre 6 — Algorithmes</h1>
+      
+      
+      <section><h2 id="notions-algorithmiques">A. Notions générales</h2><p>Un algorithme est une suite finie et ordonnée d’instructions qui résout un problème. Il reçoit éventuellement des données en entrée, effectue des calculs et produit un ou plusieurs résultats en sortie. Le pseudo-code décrit ces étapes sans dépendre d’un langage de programmation particulier.</p><section><h3 id="variables-affectation">I. Variables et affectation</h3><p>Une variable est une zone nommée qui contient une valeur. Selon le problème, cette valeur peut être un entier, un nombre réel, un booléen ou du texte. L’instruction « Lire » récupère une donnée, « Afficher » présente un résultat et la flèche ← signifie « reçoit la valeur de ».</p><section class="box-exemple"><p class="box-label">Affecter une valeur</p><pre><code>x ← 4
+x ← x + 3</code></pre>
+<p>Après la première instruction, x vaut 4. La seconde calcule l’ancienne valeur de x augmentée de 3, puis remplace x : sa nouvelle valeur est 7. L’affectation ne signifie donc pas une égalité mathématique.</p></section></section>
+<section><h3 id="suivi-execution">II. Suivre l’exécution</h3><p>Pour vérifier un algorithme, on peut dresser une table d’exécution : on note les valeurs des variables après chaque instruction. Cette méthode permet de repérer une erreur de calcul ou une condition mal choisie.</p><div class="table-wrapper"><table><caption>Suivi de l’affectation x ← x + 3 après la lecture de x = 4.</caption><thead><tr><th scope="col">Étape</th><th scope="col">Instruction</th><th scope="col">Valeur de x</th></tr></thead><tbody><tr><th scope="row">1</th><td>Lire x</td><td>4</td></tr>
+<tr><th scope="row">2</th><td>x ← x + 3</td><td>7</td></tr></tbody></table></div></section></section>
+<section><h2 id="structures-controle">B. Structures de contrôle</h2><p>Tout algorithme s’écrit en combinant des instructions exécutées dans l’ordre, des choix et des répétitions. L’indentation rend visibles les instructions qui appartiennent à chaque bloc.</p><section><h3 id="sequence-condition">I. Séquence et condition</h3><p>Une séquence exécute les instructions l’une après l’autre. Une condition permet de choisir une branche selon qu’un test est vrai ou faux. Les opérateurs de comparaison usuels sont =, ≠, &lt;, ≤, &gt; et ≥ ; les conditions peuvent aussi être combinées avec ET, OU et NON.</p><section class="box-methode"><p class="box-label">Déterminer le maximum de trois nombres</p><pre><code>Lire a, b, c
+maximum ← a
+Si b &gt; maximum alors
+    maximum ← b
+FinSi
+Si c &gt; maximum alors
+    maximum ← c
+FinSi
+Afficher maximum</code></pre>
+<p>La variable maximum contient à chaque étape le plus grand des nombres déjà examinés. Les deux tests successifs permettent de traiter tous les ordres possibles entre a, b et c.</p></section></section>
+<section><h3 id="boucles">II. Boucles</h3><p>Une boucle répète un bloc d’instructions. Une boucle « Pour » convient lorsqu’on connaît le nombre de répétitions. Une boucle « Tant que » répète le bloc tant que sa condition reste vraie ; il faut s’assurer que les instructions peuvent rendre cette condition fausse.</p><section class="box-exemple"><p class="box-label">Somme des entiers de 1 à n</p><pre><code>Lire n
+somme ← 0
+Pour i allant de 1 à n
+    somme ← somme + i
+FinPour
+Afficher somme</code></pre>
+<p>À chaque passage, on ajoute i à la somme déjà calculée. Pour n = 4, les valeurs successives de somme sont 1, 3, 6 et 10.</p></section><section class="box-exemple"><p class="box-label">Répéter jusqu’à épuisement d’un compteur</p><pre><code>compteur ← 3
+Tant que compteur &gt; 0
+    Afficher compteur
+    compteur ← compteur - 1
+FinTantQue</code></pre>
+<p>La boucle affiche 3, puis 2, puis 1. Le compteur diminue à chaque passage ; il finit par atteindre 0 et la condition devient fausse. Sans cette mise à jour, la boucle ne terminerait pas.</p></section></section></section>
+<section><h2 id="algorithmes-usuels">C. Quelques algorithmes usuels</h2><p>Les mêmes structures permettent de résoudre des problèmes courants, comme rechercher une valeur dans une liste ou calculer le PGCD de deux entiers.</p><section><h3 id="recherche-sequentielle">I. Recherche séquentielle</h3><p>La recherche séquentielle examine les éléments d’un tableau dans l’ordre et s’arrête lorsqu’elle trouve la valeur cherchée ou lorsqu’elle a parcouru tout le tableau. Ici, T contient n éléments numérotés de 1 à n. Dans le test de boucle, les conditions sont évaluées de gauche à droite avec arrêt dès que l’une est fausse.</p><section class="box-methode"><p class="box-label">Chercher x dans un tableau T</p><pre><code>i ← 1
+Tant que i ≤ n ET T[i] ≠ x
+    i ← i + 1
+FinTantQue
+Si i ≤ n alors
+    Afficher « trouvé à la position », i
+Sinon
+    Afficher « absent »
+FinSi</code></pre>
+<p>Le premier test i ≤ n évite de lire T[n + 1] : si i dépasse n, le second test n’est pas évalué. Si la valeur apparaît plusieurs fois, cet algorithme renvoie sa première position.</p></section></section>
+<section><h3 id="algorithme-euclide">II. Algorithme d’Euclide</h3><p>Pour calculer le PGCD de deux entiers positifs a et b, avec b non nul, on remplace successivement le couple (a, b) par (b, reste de la division de a par b). Le PGCD ne change pas et le reste finit par devenir nul.</p><section class="box-exemple"><p class="box-label">Calculer le PGCD de deux entiers</p><pre><code>Lire a, b
+Tant que b ≠ 0
+    reste ← a mod b
+    a ← b
+    b ← reste
+FinTantQue
+Afficher a</code></pre>
+<p>L’opérateur mod donne le reste de la division euclidienne. Par exemple, avec a = 48 et b = 18, les couples successifs sont (48, 18), (18, 12), (12, 6), puis (6, 0) : le PGCD vaut 6.</p></section></section></section>
+<section><h2 id="terminaison-complexite">D. Terminaison et coût</h2><p>Un algorithme doit produire le résultat attendu et terminer. Pour justifier la terminaison d’une boucle, on peut repérer une quantité qui évolue dans le bon sens et ne peut pas évoluer indéfiniment. Le compteur décroissant de l’exemple précédent en est un cas simple.</p><p>Le coût d’un algorithme mesure la quantité de travail nécessaire en fonction de la taille n des données. On compte souvent les opérations élémentaires ; on s’intéresse surtout à la manière dont ce nombre augmente quand n grandit.</p><div class="table-wrapper"><table><caption>Ordres de grandeur courants du nombre d’opérations.</caption><thead><tr><th scope="col">Ordre</th><th scope="col">Exemple</th><th scope="col">Interprétation</th></tr></thead><tbody><tr><th scope="row">O(1)</th><td>Lire un élément à une position connue</td><td>Le coût ne dépend pas de n</td></tr>
+<tr><th scope="row">O(n)</th><td>Parcourir une liste une fois</td><td>Le coût est proportionnel à n</td></tr>
+<tr><th scope="row">O(n²)</th><td>Comparer chaque paire d’éléments</td><td>Le coût est proportionnel à n²</td></tr></tbody></table></div><p>La recherche séquentielle effectue au plus n comparaisons : son coût est linéaire, noté O(n). Deux boucles imbriquées qui parcourent chacune n éléments peuvent effectuer n² opérations : leur coût est quadratique, noté O(n²).</p><section class="box-retenir"><p class="box-label">À retenir</p><p>Pour analyser un algorithme, identifier ses entrées et sorties, suivre les valeurs des variables, vérifier chaque condition et chaque boucle, puis s’assurer qu’il termine et répond au problème. Un algorithme correct doit fonctionner pour tous les cas prévus, y compris les cas limites.</p></section><section class="box-exercice"><p class="box-label">Exercice 62 — Suivre une boucle</p><p>On exécute l’algorithme suivant. Donner les valeurs affichées et la valeur finale de x.</p>
+<pre><code>x ← 7
+i ← 0
+Tant que i &lt; 3
+    x ← x - 2
+    i ← i + 1
+FinTantQue
+Afficher x</code></pre><details data-corrige><summary>Afficher le corrigé</summary><p>La boucle s’exécute trois fois. x prend successivement les valeurs 5, 3 et 1 ; i atteint 3, donc la condition devient fausse. L’algorithme affiche 1 et la valeur finale de x est 1.</p></details></section><section class="box-exercice"><p class="box-label">Exercice 63 — Recherche dans une liste</p><p>On applique la recherche séquentielle à T = [4, 9, 2, 9, 6]. Quelle position est renvoyée pour x = 9 ? Combien de comparaisons sont effectuées ? Que se passe-t-il pour x = 5 ?</p><details data-corrige><summary>Afficher le corrigé</summary><p>Pour x = 9, l’algorithme s’arrête à la première occurrence, en position 2, après deux comparaisons. Pour x = 5, il compare les cinq éléments puis affiche « absent ».</p></details></section><section class="box-exercice"><p class="box-label">Exercice 64 — Algorithme d’Euclide</p><p>Appliquer l’algorithme d’Euclide à 84 et 30. Écrire les restes successifs et donner le PGCD.</p><details data-corrige><summary>Afficher le corrigé</summary><p>84 = 2 × 30 + 24 ; 30 = 1 × 24 + 6 ; 24 = 4 × 6 + 0. Le dernier reste non nul est 6, donc PGCD(84 ; 30) = 6.</p></details></section></section>
+      <nav class="pagination" aria-label="Navigation entre les chapitres"><a href="chapitre-05.html">← Chapitre précédent</a><span></span></nav>
+    </main>
+  </div>
+  <footer class="site-footer"><a href="../mentions-legales.html">Mentions légales</a></footer>
+  <script src="../assets/vendor/katex/katex.min.js"></script>
+  <script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/maths.js"></script>
+  <script src="../assets/js/figures.js"></script>
+  <script src="../assets/js/exercices.js"></script>
+</body>
+</html>

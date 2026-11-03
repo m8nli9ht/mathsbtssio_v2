@@ -1,0 +1,83 @@
+.site-header {
+  border-bottom: 1px solid var(--bordure);
+  background: var(--surface);
+}
+
+.barre-haute {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.85rem;
+}
+
+.marque { margin: 0; font-size: 1.05rem; font-weight: 700; }
+.actions { display: flex; align-items: center; gap: 0.65rem; }
+.actions button, .bouton {
+  border: 1px solid var(--bordure);
+  border-radius: 0.45rem;
+  padding: 0.45rem 0.75rem;
+  color: var(--texte);
+  background: var(--surface);
+}
+
+.page-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  padding-block: 2rem 4rem;
+}
+
+.sommaire {
+  align-self: start;
+  border: 1px solid var(--bordure);
+  border-radius: 0.65rem;
+  padding: 1rem;
+  background: var(--surface);
+}
+
+.sommaire ul { margin: 0.5rem 0 0; padding-left: 1.2rem; }
+.sommaire a { text-decoration: none; }
+.sommaire .actif { font-weight: 700; text-decoration: underline; }
+
+main { min-width: 0; }
+h1, h2, h3 { line-height: 1.25; }
+h1 { margin-top: 0; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+h2 { margin-top: 2.5rem; }
+p { max-width: 72ch; }
+
+.recherche {
+  display: flex;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+.recherche input { min-width: 0; flex: 1; padding: 0.5rem; }
+.resultats { padding-left: 1.2rem; }
+.resultats li { margin-block: 0.4rem; }
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--bordure);
+}
+
+.site-footer {
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--bordure);
+  color: var(--texte-doux);
+  text-align: center;
+}
+
+@media (min-width: 58rem) {
+  .page-layout { grid-template-columns: 15rem minmax(0, 1fr); }
+  .sommaire { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow: auto; }
+}
+
+@media (max-width: 38rem) {
+  .barre-haute { align-items: flex-start; }
+  .actions { flex-wrap: wrap; justify-content: flex-end; }
+  .page-layout { padding-top: 1.25rem; }
+}

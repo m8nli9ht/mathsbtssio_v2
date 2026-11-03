@@ -1,0 +1,12 @@
+@media print {
+  :root { color-scheme: light; --fond: #fff; --surface: #fff; --texte: #000; --bordure: #999; }
+  body { background: #fff; font-size: 11pt; }
+  .site-header, .sommaire, .site-footer, .actions, .copier-latex, .pagination,
+  .recherche, .lightbox { display: none !important; }
+  .page-layout { display: block; width: auto; padding: 0; }
+  a { color: inherit; text-decoration: none; }
+  figure, .formule, .box-definition, .box-theoreme, .box-demo,
+  .box-methode, .box-exemple, .box-remarque, .box-retenir, .box-exercice {
+    break-inside: avoid;
+  }
+}
